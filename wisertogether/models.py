@@ -30,10 +30,17 @@ class DataSet(models.Model):
     ratings_count = models.IntegerField()
     title = models.CharField(max_length=225)
     revision_id = models.CharField(max_length=225)
-    #extras- make a function that will add them all to a hash
+    tracking_total = models.IntegerField(default=0)
+    tracking_recent = models.IntegerField(default=0)
 
+class Tag(models.Model):
+    name = models.CharField(max_length=225)
+    data_sets = models.ManyToManyField(DataSet)
 
-#needs join
+class Group(models.Model):
+    id_string = models.CharField(max_length=225)
+    data_sets = models.ManyToManyField(DataSet)
+
 class Resource(models.Model):
     resource_group_id = models.CharField(max_length=225)
     cache_last_updated = models.DateTimeField()
@@ -54,16 +61,6 @@ class Resource(models.Model):
     webstore_url = models.CharField(max_length=225)
     position = models.IntegerField()
     resource_type = models.CharField(max_length=225)
-
-#needs join
-class Tag(models.Model):
-    name = models.CharField(max_length=225)
-
-class TrackingSummary(models.Model):
-    data_set = models.ForeignKey(DataSet)
-    total = models.IntegerField(default=0)
-    recent = models.IntegerField(default=0)
-
-#needs join
-class Group(models.Model):
-    id_string = models.CharField(max_length=225)
+    tracking_total = models.IntegerField(default=0)
+    tracking_recent = models.IntegerField(default=0)
+    data_sets = models.ManyToManyField(DataSet)
