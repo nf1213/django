@@ -1,6 +1,43 @@
 from django.db import models
 
-# Create your models here.
+class Tag(models.Model):
+    name = models.CharField(max_length=225)
+    #data_sets = models.ManyToManyField(DataSet)
+
+    def __unicode__(self):
+        return '%s' % (self.name)
+
+class Group(models.Model):
+    id_string = models.CharField(max_length=225)
+    #data_sets = models.ManyToManyField(DataSet)
+
+    def __unicode__(self):
+        return '%s' % (self.id_string)
+
+class Resource(models.Model):
+    resource_group_id = models.CharField(max_length=225)
+    cache_last_updated = models.DateTimeField()
+    package_id = models.CharField(max_length=225)
+    webstore_last_updated = models.DateTimeField()
+    id_string = models.CharField(max_length=225)
+    size = models.CharField(max_length=225)
+    last_modified = models.DateTimeField()
+    hash_string = models.CharField(max_length=225)
+    description = models.TextField()
+    format_type = models.CharField(max_length=225)
+    mimetype_inner = models.CharField(max_length=225)
+    mimetype = models.CharField(max_length=225)
+    cache_url = models.CharField(max_length=225)
+    name = models.CharField(max_length=225)
+    created = models.DateTimeField()
+    url = models.CharField(max_length=225)
+    webstore_url = models.CharField(max_length=225)
+    position = models.IntegerField()
+    resource_type = models.CharField(max_length=225)
+    tracking_total = models.IntegerField(default=0)
+    tracking_recent = models.IntegerField(default=0)
+    #data_sets = models.ManyToManyField(DataSet)
+
 class DataSet(models.Model):
     license_title = models.CharField(max_length=225)
     maintainer = models.CharField(max_length=225)
@@ -32,35 +69,6 @@ class DataSet(models.Model):
     revision_id = models.CharField(max_length=225)
     tracking_total = models.IntegerField(default=0)
     tracking_recent = models.IntegerField(default=0)
-
-class Tag(models.Model):
-    name = models.CharField(max_length=225)
-    data_sets = models.ManyToManyField(DataSet)
-
-class Group(models.Model):
-    id_string = models.CharField(max_length=225)
-    data_sets = models.ManyToManyField(DataSet)
-
-class Resource(models.Model):
-    resource_group_id = models.CharField(max_length=225)
-    cache_last_updated = models.DateTimeField()
-    package_id = models.CharField(max_length=225)
-    webstore_last_updated = models.DateTimeField()
-    id_string = models.CharField(max_length=225)
-    size = models.CharField(max_length=225)
-    last_modified = models.DateTimeField()
-    hash_string = models.CharField(max_length=225)
-    description = models.TextField()
-    format_type = models.CharField(max_length=225)
-    mimetype_inner = models.CharField(max_length=225)
-    mimetype = models.CharField(max_length=225)
-    cache_url = models.CharField(max_length=225)
-    name = models.CharField(max_length=225)
-    created = models.DateTimeField()
-    url = models.CharField(max_length=225)
-    webstore_url = models.CharField(max_length=225)
-    position = models.IntegerField()
-    resource_type = models.CharField(max_length=225)
-    tracking_total = models.IntegerField(default=0)
-    tracking_recent = models.IntegerField(default=0)
-    data_sets = models.ManyToManyField(DataSet)
+    tags = models.ManyToManyField(Tag, blank=True)
+    groups = models.ManyToManyField(Group, blank=True)
+    resources = models.ManyToManyField(Resource, blank=True)
