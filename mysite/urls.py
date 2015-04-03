@@ -7,6 +7,7 @@ urlpatterns = patterns('',
     url(r'^admin/', include(admin.site.urls)),
     url(r'^data_sets/$', views.DataSetList.as_view()),
     url(r'^data_sets/(?P<pk>[0-9]+)/$', views.DataSetDetail.as_view()),
+    url(r'', include('social_auth.urls')),
 )
 
 urlpatterns = format_suffix_patterns(urlpatterns)

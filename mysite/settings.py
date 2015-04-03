@@ -38,6 +38,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'wisertogether',
     'rest_framework',
+    'social_auth'
 )
 
 MIDDLEWARE_CLASSES = (
@@ -49,6 +50,16 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
+
+AUTHENTICATION_BACKENDS = (
+    'social_auth.backends.contrib.github.GithubBackend',
+)
+
+# REST_FRAMEWORK = {
+#     'DEFAULT_AUTHENTICATION_CLASSES': (
+#         'rest_framework.authentication.TokenAuthentication',
+#     ),
+# }
 
 ROOT_URLCONF = 'mysite.urls'
 
@@ -83,3 +94,10 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.7/howto/static-files/
 
 STATIC_URL = '/static/'
+
+GITHUB_APP_ID = '6faa6e6e15165c9f3a5b'
+GITHUB_API_SECRET = '6ff6e8f7512f5b3762b05dbc0c8b6b40e454532d'
+
+LOGIN_URL          = '/login-form/'
+LOGIN_REDIRECT_URL = '/logged-in/'
+LOGIN_ERROR_URL    = '/login-error/'
